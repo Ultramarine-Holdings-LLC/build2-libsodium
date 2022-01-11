@@ -27,6 +27,9 @@ c.coptions += \
     "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mpclmul"
 
 lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
+{
+    c.export.poptions += "-I$src_base/src/libsodium/include" "-I$out_base"
+}
 
 sources_assembly = \
     src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{sandy2x.S} \
