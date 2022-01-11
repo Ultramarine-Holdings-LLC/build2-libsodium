@@ -32,6 +32,16 @@ sources_assembly = \
     src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{sandy2x.S} \
     src/libsodium/crypto_stream/salsa20/xmm6/file{salsa20_xmm6-asm.S}
 
+sources_assembly_include = \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{consts.S} \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{fe51_mul.S} \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{fe51_nsquare.S} \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{fe51_pack.S} \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{ladder.S} \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{ladder_base.S} \
+
+lib{sodium}: $sources_assembly $sources_assembly_include
+
 for f: $sources_assembly
 {
     for t: obja objs
