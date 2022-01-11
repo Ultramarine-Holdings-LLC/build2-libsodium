@@ -83,5 +83,5 @@ tests = \
 
 for f: $tests
 {
-    ./: exe{$f}: test/default/c{$f} test/default/h{cmptest} test/quirks/h{quirks} $libs
+    ./: exe{$f}: test/default/c{$f} test/default/file{$(f).exp} test/default/h{cmptest} test/quirks/h{quirks} $libs
 }
