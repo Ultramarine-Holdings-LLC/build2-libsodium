@@ -60,6 +60,9 @@ for f: $sources_assembly
 
 sodium/h{version}: src/libsodium/include/sodium/in{version} fsdir{sodium} $src_root/manifest
 {
+    dist = true
+    clean = ($src_root != $out_root)
+
     in.symbol = '@'
 
     SODIUM_LIBRARY_VERSION_MAJOR = $version.major
