@@ -1,6 +1,6 @@
 import libs = libsodium%lib{sodium}
 
-c.poptions += "-I$src_base/test/quirks" "-DTEST_SRCDIR=\"./tests/driver/test/default\""
+c.poptions += "-I$src_base/test/quirks" "-DTEST_SRCDIR=\"$src_base/test/default\""
 
 tests = \
     aead_aes256gcm \
