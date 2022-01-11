@@ -9,7 +9,6 @@ c.poptions += \
     "-DHAVE_SMMINTRIN_H=1" \
     "-DHAVE_AVXINTRIN_H=1" \
     "-DHAVE_AVX2INTRIN_H=1" \
-    "-DHAVE_AVX512FINTRIN_H=1" \
     "-DHAVE_WMMINTRIN_H=1" \
     "-DHAVE_AVX_ASM=1" \
     "-DHAVE_RDRAND=1" \
@@ -25,7 +24,7 @@ if ($c.target.class == 'windows')
 
 c.coptions += \
     "-fstack-protector" "-fstack-protector-all" \
-    "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mavx512f" "-mpclmul"
+    "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mpclmul"
 
 lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
 
