@@ -73,6 +73,12 @@ sodium/h{version}: src/libsodium/include/sodium/in{version} $src_root/manifest
 
 liba{sodium}: cc.export.poptions += "-DSODIUM_STATIC"
 
+sodium/h{*}:
+{
+    install = include/sodium/
+    install.subdirs = false
+}
+
 src/libsodium/include/h{*}:
 {
     install = include/
