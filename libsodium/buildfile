@@ -1,0 +1,75 @@
+c.poptions += \
+    "-I$src_base/src/libsodium/include/sodium" "-I$out_base" "-I$out_base/sodium" \
+    "-DCONFIGURED=1" \
+    "-DNATIVE_LITTLE_ENDIAN=1" \
+    "-DHAVE_TI_MODE=1" \
+    "-DHAVE_EMMINTRIN_H=1" \
+    "-DHAVE_PMMINTRIN_H=1" \
+    "-DHAVE_TMMINTRIN_H=1" \
+    "-DHAVE_SMMINTRIN_H=1" \
+    "-DHAVE_AVXINTRIN_H=1" \
+    "-DHAVE_AVX2INTRIN_H=1" \
+    "-DHAVE_AVX512FINTRIN_H=1" \
+    "-DHAVE_WMMINTRIN_H=1" \
+    "-DHAVE_AVX_ASM=1" \
+    "-DHAVE_RDRAND=1" \
+    "-DHAVE_WEAK_SYMBOLS=1" \
+    "-DHAVE_C_VARARRAYS=1" \
+    "-DHAVE_AMD64_ASM=1"
+
+if ($c.target.class == 'linux')
+    c.poptions += "-DHAVE_SYS_MMAN_H=1" "-DHAVE_SYS_RANDOM_H=1" "-DHAVE_GETPID=1" "-DHAVE_MLOCK=1" "-DHAVE_MPROTECT=1"
+
+if ($c.target.class == 'windows')
+    c.poptions += "-DHAVE_INTRIN_H=1"
+
+c.coptions += \
+    "-fstack-protector" "-fstack-protector-all" \
+    "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mavx512f" "-mpclmul"
+
+lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
+
+sources_assembly = \
+    src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{sandy2x.S} \
+    src/libsodium/crypto_stream/salsa20/xmm6/file{salsa20_xmm6-asm.S}
+
+for f: $sources_assembly
+{
+    for t: obja objs
+    {
+        $t{$name($f).o}: $f
+        {{
+            diag as $>
+            $c.path -o $path($>) -c $path($<[0]) -DHAVE_AVX_ASM=1 -DHAVE_AMD64_ASM=1
+        }}
+    }
+    lib{sodium}: obj{$name($f)}
+}
+
+sodium/h{version}: src/libsodium/include/sodium/in{version} $src_root/manifest
+{
+    in.symbol = '@'
+
+    SODIUM_LIBRARY_VERSION_MAJOR = $version.major
+    SODIUM_LIBRARY_VERSION_MINOR = $version.minor
+    VERSION = $version
+    SODIUM_LIBRARY_MINIMAL_DEF = ''
+}
+
+{hbmia obja}{*}: c.poptions += "-DSODIUM_STATIC"
+{hbmis objs}{*}: c.poptions += "-DSODIUM_DLL_EXPORT"
+
+liba{sodium}: cc.export.poptions += "-DSODIUM_STATIC"
+libs{sodium}: cc.export.poptions += "-DSODIUM_EXPORT"
+
+src/libsodium/include/h{*}:
+{
+    install = include/
+    install.subdirs = false
+}
+
+src/libsodium/include/sodium/h{*}:
+{
+    install = include/sodium/
+    install.subdirs = false
+}
