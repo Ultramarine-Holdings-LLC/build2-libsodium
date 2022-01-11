@@ -72,7 +72,6 @@ sodium/h{version}: src/libsodium/include/sodium/in{version} $src_root/manifest
 {hbmis objs}{*}: c.poptions += "-DSODIUM_DLL_EXPORT"
 
 liba{sodium}: cc.export.poptions += "-DSODIUM_STATIC"
-libs{sodium}: cc.export.poptions += "-DSODIUM_EXPORT"
 
 src/libsodium/include/h{*}:
 {
