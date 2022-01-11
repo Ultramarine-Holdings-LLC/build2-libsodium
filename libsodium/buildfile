@@ -28,7 +28,7 @@ c.coptions += \
 
 lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
 {
-    c.export.poptions += "-I$src_base/src/libsodium/include" "-I$out_base"
+    c.export.poptions += "-I$src_base/src/libsodium/include" "-I$out_base" "-I$src_base/src/libsodium/include/sodium"
 }
 
 sources_assembly = \
