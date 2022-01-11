@@ -58,7 +58,7 @@ for f: $sources_assembly
     lib{sodium}: obj{$name($f)}
 }
 
-sodium/h{version}: src/libsodium/include/sodium/in{version} $src_root/manifest
+sodium/h{version}: src/libsodium/include/sodium/in{version} fsdir{sodium} $src_root/manifest
 {
     in.symbol = '@'
 
