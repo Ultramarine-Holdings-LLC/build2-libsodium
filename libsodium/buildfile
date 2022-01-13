@@ -1,5 +1,5 @@
 c.poptions += \
-    "-I$src_base/src/libsodium/include/sodium" "-I$out_base" "-I$out_base/sodium" \
+    "-I$src_base/src/libsodium/include/sodium" "-I$out_base/libsodium" "-I$out_base/libsodium/sodium" \
     "-DCONFIGURED=1" \
     "-DNATIVE_LITTLE_ENDIAN=1" \
     "-DHAVE_TI_MODE=1" \
@@ -26,7 +26,7 @@ c.coptions += \
     "-fstack-protector" "-fstack-protector-all" \
     "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mpclmul"
 
-lib{sodium}: src/libsodium/{h c}{**} h{version}
+lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
 {
     c.export.poptions += "-I$src_base/src/libsodium/include" "-I$out_base" "-I$src_base/src/libsodium/include/sodium"
 }
@@ -58,7 +58,7 @@ for f: $sources_assembly
     lib{sodium}: obj{$name($f)}
 }
 
-h{version}: src/libsodium/include/sodium/in{version} fsdir{sodium} $src_root/manifest
+sodium/h{version}: src/libsodium/include/sodium/in{version} fsdir{sodium} $src_root/manifest
 {
     dist = true
     clean = ($src_root != $out_root)
