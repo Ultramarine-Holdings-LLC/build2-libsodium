@@ -1,5 +1,5 @@
 c.poptions += \
-    "-I$src_base/src/libsodium/include/sodium" "-I$out_base/libsodium" "-I$out_base/libsodium/sodium" \
+    "-I$src_base/src/libsodium/include/sodium" "-I$out_base" "-I$out_base/sodium" \
     "-DCONFIGURED=1" \
     "-DNATIVE_LITTLE_ENDIAN=1" \
     "-DHAVE_TI_MODE=1" \
