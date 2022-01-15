@@ -84,6 +84,8 @@ sodium/h{*}:
     install.subdirs = false
 }
 
+src/libsodium/h{**}: install = false
+
 src/libsodium/include/h{*}:
 {
     install = include/

@@ -1,6 +1,6 @@
 : 1
 name: libsodium
-version: 1.0.18+8
+version: 1.0.18+9
 summary: A modern, portable, easy to use crypto library.
 license: ISC
 url: https://doc.libsodium.org/
