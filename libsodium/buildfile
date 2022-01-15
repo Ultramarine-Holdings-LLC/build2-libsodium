@@ -31,6 +31,8 @@ lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
     cc.export.poptions += "-I$src_base/src/libsodium/include" "-I$out_base" "-I$src_base/src/libsodium/include/sodium"
 }
 
+c{version}: sodium/h{version}
+
 sources_assembly = \
     src/libsodium/crypto_scalarmult/curve25519/sandy2x/file{sandy2x.S} \
     src/libsodium/crypto_stream/salsa20/xmm6/file{salsa20_xmm6-asm.S}
