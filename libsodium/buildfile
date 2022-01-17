@@ -8,13 +8,23 @@ c.poptions += \
     "-DHAVE_TMMINTRIN_H=1" \
     "-DHAVE_SMMINTRIN_H=1" \
     "-DHAVE_AVXINTRIN_H=1" \
-    "-DHAVE_AVX2INTRIN_H=1" \
     "-DHAVE_WMMINTRIN_H=1" \
     "-DHAVE_AVX_ASM=1" \
-    "-DHAVE_RDRAND=1" \
     "-DHAVE_WEAK_SYMBOLS=1" \
     "-DHAVE_C_VARARRAYS=1" \
     "-DHAVE_AMD64_ASM=1"
+
+if ($config.libsodium.avx2)
+{
+    c.poptions += "-DHAVE_AVX2INTRIN_H=1"
+    c.coptions += "-mavx2"
+}
+
+if ($config.libsodium.rdrnd)
+{
+    c.poptions += "-DHAVE_RDRAND=1"
+    c.coptions += "-mrdrnd"
+}
 
 if ($c.target.class == 'linux')
     c.poptions += "-DHAVE_SYS_MMAN_H=1" "-DHAVE_SYS_RANDOM_H=1" "-DHAVE_GETPID=1" "-DHAVE_MLOCK=1" "-DHAVE_MPROTECT=1"
@@ -24,7 +34,7 @@ if ($c.target.class == 'windows')
 
 c.coptions += \
     "-fstack-protector" "-fstack-protector-all" \
-    "-mrdrnd" "-maes" "-mavx" "-mavx2" "-mssse3" "-mpclmul"
+    "-maes" "-mavx"  "-mssse3" "-mpclmul"
 
 lib{sodium}: src/libsodium/{h c}{**} sodium/h{version}
 {
