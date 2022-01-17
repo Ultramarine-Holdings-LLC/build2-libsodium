@@ -59,14 +59,11 @@ lib{sodium}: $sources_assembly $sources_assembly_include
 
 for f: $sources_assembly
 {
-    for t: obja objs
-    {
-        $t{$name($f).o}: $f
-        {{
-            diag as $>
-            $c.path -o $path($>) -c $path($<[0]) -DHAVE_AVX_ASM=1 -DHAVE_AMD64_ASM=1
-        }}
-    }
+    obja{$name($f)...a.o} objs{$name($f)...so.o}: $f
+    {{
+        diag as $>
+        $c.path -o $path($>) -c $path($<[0]) -DHAVE_AVX_ASM=1 -DHAVE_AMD64_ASM=1
+    }}
     lib{sodium}: obj{$name($f)}
 }
 
