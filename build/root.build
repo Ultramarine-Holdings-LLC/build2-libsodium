@@ -4,3 +4,6 @@ h{*}: extension = h
 c{*}: extension = c
 
 h{*}: c.importable = true
+
+config [bool] config.libsodium.avx2 ?= false
+config [bool] config.libsodium.rdrnd ?= false
